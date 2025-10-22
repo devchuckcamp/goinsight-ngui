@@ -7,15 +7,92 @@
   <div style="margin-bottom: 24px;">
     <mat-form-field style="width: 100%;">
       <mat-label>Ask a question about your feedback data</mat-label>
-      <input matInput [(ngModel)]="question" placeholder="e.g., What are the top complaints from enterprise customers?">
+      <input matInput [(ngModel)]="question"
+             placeholder="e.g., What are the top complaints from enterprise customers?"
+             (keyup.enter)="askQuestion()">
     </mat-form-field>
-    <button mat-raised-button color="primary" [disabled]="!question.trim()">
+    <button mat-raised-button color="primary" [disabled]="!question.trim() || loading" (click)="askQuestion()">
       <mat-icon>send</mat-icon>
       Ask
     </button>
   </div>
 
-  <p style="text-align: center; color: #757575;">Enter a question above to analyze your feedback data.</p>
+  @if (loading) {
+    <div style="text-align: center; padding: 32px;">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Analyzing your feedback data...</p>
+    </div>
+  }
+
+  @if (error) {
+    <div style="color: #d32f2f; padding: 16px; background: #ffebee; border-radius: 4px; margin-bottom: 16px;">
+      {{ error }}
+    </div>
+  }
+
+  @if (response) {
+    <div style="margin-bottom: 24px;">
+      <h3>Summary</h3>
+      <p>{{ response.summary }}</p>
+    </div>
+
+    @if (response.data_preview.length > 0) {
+      <div style="margin-bottom: 24px;">
+        <h3>Data Preview</h3>
+        <div style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr style="background: #f5f5f5;">
+                <th style="padding: 8px; text-align: left; border-bottom: 2px solid #e0e0e0;">Topic</th>
+                <th style="padding: 8px; text-align: left; border-bottom: 2px solid #e0e0e0;">Sentiment</th>
+                <th style="padding: 8px; text-align: left; border-bottom: 2px solid #e0e0e0;">Priority</th>
+                <th style="padding: 8px; text-align: left; border-bottom: 2px solid #e0e0e0;">Source</th>
+                <th style="padding: 8px; text-align: left; border-bottom: 2px solid #e0e0e0;">Summary</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (item of response.data_preview; track item.id) {
+                <tr>
+                  <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">{{ item.topic }}</td>
+                  <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">{{ item.sentiment }}</td>
+                  <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">{{ item.priority }}</td>
+                  <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">{{ item.source }}</td>
+                  <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">{{ item.summary }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    }
+
+    @if (response.recommendations.length > 0) {
+      <div style="margin-bottom: 24px;">
+        <h3>Recommendations</h3>
+        <ul>
+          @for (rec of response.recommendations; track rec) {
+            <li>{{ rec }}</li>
+          }
+        </ul>
+      </div>
+    }
+
+    @if (response.actions.length > 0) {
+      <div style="margin-bottom: 24px;">
+        <h3>Recommended Actions</h3>
+        @for (action of response.actions; track action.title) {
+          <div style="padding: 16px; margin-bottom: 8px; border: 1px solid #e0e0e0; border-radius: 4px;">
+            <strong>{{ action.title }}</strong>
+            <p>{{ action.description }}</p>
+          </div>
+        }
+      </div>
+    }
+  }
+
+  @if (!response && !loading && !error) {
+    <p style="text-align: center; color: #757575;">Enter a question above to analyze your feedback data.</p>
+  }
 </main>
 
 <footer style="padding: 16px; text-align: center; background: #f5f5f5; color: #757575; font-size: 14px;">
