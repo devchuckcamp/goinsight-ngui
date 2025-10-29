@@ -4,18 +4,7 @@
 </mat-toolbar>
 
 <main style="flex: 1; max-width: 1200px; margin: 32px auto; padding: 0 16px; width: 100%;">
-  <div style="margin-bottom: 24px;">
-    <mat-form-field style="width: 100%;">
-      <mat-label>Ask a question about your feedback data</mat-label>
-      <input matInput [(ngModel)]="question"
-             placeholder="e.g., What are the top complaints from enterprise customers?"
-             (keyup.enter)="askQuestion()">
-    </mat-form-field>
-    <button mat-raised-button color="primary" [disabled]="!question.trim() || loading" (click)="askQuestion()">
-      <mat-icon>send</mat-icon>
-      Ask
-    </button>
-  </div>
+  <ti-question-form (submitQuestion)="onAskQuestion($event)"></ti-question-form>
 
   @if (loading) {
     <div style="text-align: center; padding: 32px;">
@@ -31,10 +20,7 @@
   }
 
   @if (response) {
-    <div style="margin-bottom: 24px;">
-      <h3>Summary</h3>
-      <p>{{ response.summary }}</p>
-    </div>
+    <ti-insight-summary [summary]="response.summary"></ti-insight-summary>
 
     @if (response.data_preview.length > 0) {
       <div style="margin-bottom: 24px;">
