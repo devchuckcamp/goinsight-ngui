@@ -23,64 +23,27 @@
     <ti-insight-summary [summary]="response.summary"></ti-insight-summary>
 
     @if (response.data_preview.length > 0) {
-      <div style="margin-bottom: 24px;">
-        <h3>Data Preview</h3>
-        <div style="overflow-x: auto;">
-          <table style="width: 100%; border-collapse: collapse;">
-            <thead>
-              <tr style="background: #f5f5f5;">
-                <th style="padding: 8px; text-align: left; border-bottom: 2px solid #e0e0e0;">Topic</th>
-                <th style="padding: 8px; text-align: left; border-bottom: 2px solid #e0e0e0;">Sentiment</th>
-                <th style="padding: 8px; text-align: left; border-bottom: 2px solid #e0e0e0;">Priority</th>
-                <th style="padding: 8px; text-align: left; border-bottom: 2px solid #e0e0e0;">Source</th>
-                <th style="padding: 8px; text-align: left; border-bottom: 2px solid #e0e0e0;">Summary</th>
-              </tr>
-            </thead>
-            <tbody>
-              @for (item of response.data_preview; track item.id) {
-                <tr>
-                  <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">{{ item.topic }}</td>
-                  <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">{{ item.sentiment }}</td>
-                  <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">{{ item.priority }}</td>
-                  <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">{{ item.source }}</td>
-                  <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">{{ item.summary }}</td>
-                </tr>
-              }
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <ti-data-preview-table [data]="response.data_preview"></ti-data-preview-table>
     }
 
     @if (response.recommendations.length > 0) {
-      <div style="margin-bottom: 24px;">
-        <h3>Recommendations</h3>
-        <ul>
-          @for (rec of response.recommendations; track rec) {
-            <li>{{ rec }}</li>
-          }
-        </ul>
-      </div>
+      <ti-recommendations-list [recommendations]="response.recommendations"></ti-recommendations-list>
     }
 
     @if (response.actions.length > 0) {
-      <div style="margin-bottom: 24px;">
-        <h3>Recommended Actions</h3>
-        @for (action of response.actions; track action.title) {
-          <div style="padding: 16px; margin-bottom: 8px; border: 1px solid #e0e0e0; border-radius: 4px;">
-            <strong>{{ action.title }}</strong>
-            <p>{{ action.description }}</p>
-          </div>
-        }
-      </div>
+      <ti-actions-accordion [actions]="response.actions"></ti-actions-accordion>
     }
   }
 
   @if (!response && !loading && !error) {
-    <p style="text-align: center; color: #757575;">Enter a question above to analyze your feedback data.</p>
+    <div style="text-align: center; padding: 64px 16px; color: rgba(0,0,0,0.6);">
+      <div style="font-size: 48px; margin-bottom: 16px;">&#128161;</div>
+      <div style="font-size: 18px; font-weight: 500; margin-bottom: 8px;">Ready to analyze your feedback data</div>
+      <div style="font-size: 14px;">Enter a natural language question above to get started</div>
+    </div>
   }
 </main>
 
 <footer style="padding: 16px; text-align: center; background: #f5f5f5; color: #757575; font-size: 14px;">
-  TensInsight &copy; {{ currentYear }}
+  TensInsight &copy; {{ currentYear }} – AI-Powered Feedback Analytics
 </footer>
