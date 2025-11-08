@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AsyncPipe } from '@angular/common';
 import { ApiService } from './api.service';
+import { InsightStateService } from './insight-state.service';
 import { AskResponse } from './models';
 import { QuestionForm } from './question-form';
 import { InsightSummary } from './insight-summary';
@@ -13,6 +16,7 @@ import { ActionsAccordion } from './actions-accordion';
 @Component({
   selector: 'ti-root',
   imports: [
+    AsyncPipe,
     MatToolbarModule,
     MatIconModule,
     MatProgressSpinnerModule,
@@ -28,25 +32,21 @@ import { ActionsAccordion } from './actions-accordion';
 export class App {
   title = 'TensInsight';
   currentYear = new Date().getFullYear();
-  response: AskResponse | null = null;
-  loading = false;
-  error = '';
 
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    public state: InsightStateService,
+  ) {}
 
   onAskQuestion(question: string): void {
-    this.loading = true;
-    this.error = '';
-    this.response = null;
+    this.state.setLoading(true);
 
     this.apiService.askQuestion(question).subscribe({
       next: (data) => {
-        this.response = data;
-        this.loading = false;
+        this.state.setInsightData(question, data);
       },
       error: (err) => {
-        this.error = err.message || 'Something went wrong';
-        this.loading = false;
+        this.state.setError(err.message || 'Something went wrong');
       },
     });
   }

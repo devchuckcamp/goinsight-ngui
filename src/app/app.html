@@ -6,20 +6,20 @@
 <main style="flex: 1; max-width: 1200px; margin: 32px auto; padding: 0 16px; width: 100%;">
   <ti-question-form (submitQuestion)="onAskQuestion($event)"></ti-question-form>
 
-  @if (loading) {
+  @if (state.loading$ | async) {
     <div style="text-align: center; padding: 32px;">
       <mat-spinner diameter="40"></mat-spinner>
       <p>Analyzing your feedback data...</p>
     </div>
   }
 
-  @if (error) {
+  @if (state.error$ | async; as error) {
     <div style="color: #d32f2f; padding: 16px; background: #ffebee; border-radius: 4px; margin-bottom: 16px;">
       {{ error }}
     </div>
   }
 
-  @if (response) {
+  @if (state.lastResponse$ | async; as response) {
     <ti-insight-summary [summary]="response.summary"></ti-insight-summary>
 
     @if (response.data_preview.length > 0) {
@@ -35,7 +35,7 @@
     }
   }
 
-  @if (!response && !loading && !error) {
+  @if (!(state.lastResponse$ | async) && !(state.loading$ | async) && !(state.error$ | async)) {
     <div style="text-align: center; padding: 64px 16px; color: rgba(0,0,0,0.6);">
       <div style="font-size: 48px; margin-bottom: 16px;">&#128161;</div>
       <div style="font-size: 18px; font-weight: 500; margin-bottom: 8px;">Ready to analyze your feedback data</div>
