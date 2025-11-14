@@ -3,3 +3,24 @@
   flex-direction: column;
   min-height: 100vh;
 }
+
+.empty-state {
+  text-align: center;
+  padding: 64px 16px;
+  color: rgba(0, 0, 0, 0.6);
+
+  &__icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+
+  &__title {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  &__subtitle {
+    font-size: 14px;
+  }
+}

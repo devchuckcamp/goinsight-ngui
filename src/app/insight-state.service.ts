@@ -1,53 +1,49 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, signal, computed } from '@angular/core';
 import { AskResponse } from './models';
 
-interface InsightState {
-  currentQuestion: string | null;
-  lastResponse: AskResponse | null;
-  loading: boolean;
-  error: string | null;
+export interface ApiError {
+  message: string;
+  status?: number;
 }
-
-const initialState: InsightState = {
-  currentQuestion: null,
-  lastResponse: null,
-  loading: false,
-  error: null,
-};
 
 @Injectable({ providedIn: 'root' })
 export class InsightStateService {
-  private state$ = new BehaviorSubject<InsightState>(initialState);
+  // Data state
+  readonly currentQuestion = signal<string | null>(null);
+  readonly lastResponse = signal<AskResponse | null>(null);
 
-  readonly currentQuestion$ = new BehaviorSubject<string | null>(null);
-  readonly lastResponse$ = new BehaviorSubject<AskResponse | null>(null);
-  readonly loading$ = new BehaviorSubject<boolean>(false);
-  readonly error$ = new BehaviorSubject<string | null>(null);
+  // UI state
+  readonly loading = signal(false);
+  readonly error = signal<ApiError | null>(null);
+
+  // Computed
+  readonly hasResponse = computed(() => this.lastResponse() !== null && this.currentQuestion() !== null);
 
   setLoading(loading: boolean): void {
-    this.loading$.next(loading);
-    if (loading) {
-      this.error$.next(null);
-    }
+    this.loading.set(loading);
+    this.error.set(null);
   }
 
-  setError(error: string | null): void {
-    this.error$.next(error);
-    this.loading$.next(false);
+  setError(error: ApiError | null): void {
+    this.error.set(error);
+    this.loading.set(false);
   }
 
   setInsightData(question: string, response: AskResponse): void {
-    this.currentQuestion$.next(question);
-    this.lastResponse$.next(response);
-    this.loading$.next(false);
-    this.error$.next(null);
+    this.currentQuestion.set(question);
+    this.lastResponse.set(response);
+    this.loading.set(false);
+    this.error.set(null);
+  }
+
+  clearError(): void {
+    this.error.set(null);
   }
 
   reset(): void {
-    this.currentQuestion$.next(null);
-    this.lastResponse$.next(null);
-    this.loading$.next(false);
-    this.error$.next(null);
+    this.currentQuestion.set(null);
+    this.lastResponse.set(null);
+    this.loading.set(false);
+    this.error.set(null);
   }
 }

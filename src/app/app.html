@@ -1,25 +1,25 @@
 <mat-toolbar color="primary">
   <mat-icon>insights</mat-icon>
-  <span style="margin-left: 16px; font-weight: 600;">{{ title }} - Feedback Copilot</span>
+  <span style="margin-left: 16px; font-weight: 600;">TensInsight – Feedback Copilot</span>
 </mat-toolbar>
 
 <main style="flex: 1; max-width: 1200px; margin: 32px auto; padding: 0 16px; width: 100%;">
   <ti-question-form (submitQuestion)="onAskQuestion($event)"></ti-question-form>
 
-  @if (state.loading$ | async) {
+  @if (state.loading()) {
     <div style="text-align: center; padding: 32px;">
       <mat-spinner diameter="40"></mat-spinner>
       <p>Analyzing your feedback data...</p>
     </div>
   }
 
-  @if (state.error$ | async; as error) {
+  @if (state.error(); as error) {
     <div style="color: #d32f2f; padding: 16px; background: #ffebee; border-radius: 4px; margin-bottom: 16px;">
-      {{ error }}
+      {{ error.message }}
     </div>
   }
 
-  @if (state.lastResponse$ | async; as response) {
+  @if (state.lastResponse(); as response) {
     <ti-insight-summary [summary]="response.summary"></ti-insight-summary>
 
     @if (response.data_preview.length > 0) {
@@ -35,11 +35,11 @@
     }
   }
 
-  @if (!(state.lastResponse$ | async) && !(state.loading$ | async) && !(state.error$ | async)) {
-    <div style="text-align: center; padding: 64px 16px; color: rgba(0,0,0,0.6);">
-      <div style="font-size: 48px; margin-bottom: 16px;">&#128161;</div>
-      <div style="font-size: 18px; font-weight: 500; margin-bottom: 8px;">Ready to analyze your feedback data</div>
-      <div style="font-size: 14px;">Enter a natural language question above to get started</div>
+  @if (!state.hasResponse() && !state.loading() && !state.error()) {
+    <div class="empty-state">
+      <div class="empty-state__icon">&#128161;</div>
+      <div class="empty-state__title">Ready to analyze your feedback data</div>
+      <div class="empty-state__subtitle">Enter a natural language question above to get started</div>
     </div>
   }
 </main>
