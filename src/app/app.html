@@ -1,20 +1,15 @@
-<mat-toolbar color="primary">
-  <mat-icon>insights</mat-icon>
-  <span style="margin-left: 16px; font-weight: 600;">TensInsight – Feedback Copilot</span>
-</mat-toolbar>
-
-<main style="flex: 1; max-width: 1200px; margin: 32px auto; padding: 0 16px; width: 100%;">
+<ti-app-layout>
   <ti-question-form (submitQuestion)="onAskQuestion($event)"></ti-question-form>
 
   @if (state.loading()) {
-    <div style="text-align: center; padding: 32px;">
+    <div class="loading-container">
       <mat-spinner diameter="40"></mat-spinner>
       <p>Analyzing your feedback data...</p>
     </div>
   }
 
   @if (state.error(); as error) {
-    <div style="color: #d32f2f; padding: 16px; background: #ffebee; border-radius: 4px; margin-bottom: 16px;">
+    <div class="error-banner">
       {{ error.message }}
     </div>
   }
@@ -42,8 +37,4 @@
       <div class="empty-state__subtitle">Enter a natural language question above to get started</div>
     </div>
   }
-</main>
-
-<footer style="padding: 16px; text-align: center; background: #f5f5f5; color: #757575; font-size: 14px;">
-  TensInsight &copy; {{ currentYear }} – AI-Powered Feedback Analytics
-</footer>
+</ti-app-layout>

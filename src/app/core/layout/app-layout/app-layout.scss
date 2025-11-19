@@ -1,0 +1,37 @@
+@use '../../../../styles/variables' as *;
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+mat-toolbar {
+  mat-icon {
+    margin-right: $spacing-md;
+  }
+}
+
+.toolbar-title {
+  font-weight: 600;
+  flex-grow: 1;
+}
+
+.app-content {
+  flex: 1;
+  max-width: 1536px;
+  width: 100%;
+  margin: $spacing-xl auto;
+  padding: 0 $spacing-md;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-footer {
+  padding: $spacing-md;
+  margin-top: auto;
+  background-color: $gray-100;
+  text-align: center;
+  color: $gray-600;
+  font-size: 0.875rem;
+}

@@ -1,0 +1,12 @@
+<div class="question-form">
+  <mat-form-field class="question-field">
+    <mat-label>Ask a question about your feedback data</mat-label>
+    <input matInput [(ngModel)]="question"
+           placeholder="e.g., What are the top complaints from enterprise customers?"
+           (keyup.enter)="onSubmit()">
+  </mat-form-field>
+  <button mat-raised-button color="primary" [disabled]="!question.trim()" (click)="onSubmit()">
+    <mat-icon>send</mat-icon>
+    Ask
+  </button>
+</div>

@@ -1,21 +1,21 @@
-import { Component, inject } from '@angular/core';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ApiService } from './api.service';
-import { InsightStateService } from './insight-state.service';
-import { QuestionForm } from './question-form';
-import { InsightSummary } from './insight-summary';
-import { DataPreviewTable } from './data-preview-table';
-import { RecommendationsList } from './recommendations-list';
-import { ActionsAccordion } from './actions-accordion';
+import { AppLayout } from './core/layout/app-layout/app-layout';
+import { GoinsightApiService } from './core/services/goinsight-api.service';
+import { InsightStateService } from './core/services/insight-state.service';
+import {
+  QuestionForm,
+  InsightSummary,
+  DataPreviewTable,
+  RecommendationsList,
+  ActionsAccordion,
+} from './features/ask';
 
 @Component({
   selector: 'ti-root',
   imports: [
-    MatToolbarModule,
-    MatIconModule,
     MatProgressSpinnerModule,
+    AppLayout,
     QuestionForm,
     InsightSummary,
     DataPreviewTable,
@@ -24,12 +24,11 @@ import { ActionsAccordion } from './actions-accordion';
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
-  private readonly apiService = inject(ApiService);
+  private readonly apiService = inject(GoinsightApiService);
   readonly state = inject(InsightStateService);
-
-  readonly currentYear = new Date().getFullYear();
 
   onAskQuestion(question: string): void {
     this.state.setLoading(true);

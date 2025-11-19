@@ -1,10 +1,5 @@
 import { Injectable, signal, computed } from '@angular/core';
-import { AskResponse } from './models';
-
-export interface ApiError {
-  message: string;
-  status?: number;
-}
+import { AskResponse, ApiError } from '../../shared/models';
 
 @Injectable({ providedIn: 'root' })
 export class InsightStateService {
