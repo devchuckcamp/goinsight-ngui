@@ -29,6 +29,30 @@ export interface AskRequest {
   question: string;
 }
 
+export interface JiraTicketMeta {
+  project_key: string;
+}
+
+export interface CreateJiraTicketsRequest {
+  question: string;
+  data_preview: FeedbackItem[];
+  summary: string;
+  recommendations: string[];
+  actions: Action[];
+  meta: JiraTicketMeta;
+}
+
+export interface JiraTicket {
+  action_title: string;
+  ticket_key: string;
+  ticket_url: string;
+}
+
+export interface CreateJiraTicketsResponse {
+  ticket_specs: JiraTicket[];
+  created_tickets: JiraTicket[];
+}
+
 export interface ApiError {
   message: string;
   status?: number;
