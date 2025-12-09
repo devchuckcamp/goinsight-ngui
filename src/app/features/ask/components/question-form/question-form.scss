@@ -1,7 +1,12 @@
+@use '../../../../../styles/variables' as *;
+
 .question-form {
-  margin-bottom: 24px;
+  margin-bottom: $spacing-lg;
+  display: flex;
+  gap: $spacing-md;
+  align-items: flex-start;
 }
 
 .question-field {
-  width: 100%;
+  flex: 1;
 }

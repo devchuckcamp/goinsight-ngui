@@ -1,12 +1,20 @@
-<div class="question-form">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="question-form">
   <mat-form-field class="question-field">
     <mat-label>Ask a question about your feedback data</mat-label>
-    <input matInput [(ngModel)]="question"
+    <input matInput formControlName="question"
            placeholder="e.g., What are the top complaints from enterprise customers?"
            (keyup.enter)="onSubmit()">
+    @if (form.controls.question.hasError('required') && form.controls.question.touched) {
+      <mat-error>Please enter a question</mat-error>
+    }
+    @if (form.controls.question.hasError('minlength') && form.controls.question.touched) {
+      <mat-error>Question must be at least 3 characters</mat-error>
+    }
   </mat-form-field>
-  <button mat-raised-button color="primary" [disabled]="!question.trim()" (click)="onSubmit()">
+  <button mat-raised-button color="primary"
+          type="submit"
+          [disabled]="form.invalid || loading()">
     <mat-icon>send</mat-icon>
     Ask
   </button>
-</div>
+</form>
