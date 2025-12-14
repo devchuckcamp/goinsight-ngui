@@ -1,3 +1,15 @@
+@use '../../../../../styles/variables' as *;
+
 .insight-card {
-  margin-bottom: 24px;
+  margin-bottom: $spacing-lg;
+}
+
+.summary-icon {
+  color: $primary-color;
+}
+
+.summary-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: $gray-800;
 }

@@ -1,7 +1,15 @@
+@use '../../../../../styles/variables' as *;
+
 .table-container {
-  margin-bottom: 24px;
+  margin-bottom: $spacing-lg;
 }
 
 .table-scroll {
   overflow-x: auto;
+  border-radius: $border-radius-sm;
+  box-shadow: $shadow-sm;
+}
+
+table {
+  width: 100%;
 }

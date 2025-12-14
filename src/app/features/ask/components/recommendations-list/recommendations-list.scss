@@ -1,3 +1,5 @@
+@use '../../../../../styles/variables' as *;
+
 .recommendations-container {
-  margin-bottom: 24px;
+  margin-bottom: $spacing-lg;
 }
