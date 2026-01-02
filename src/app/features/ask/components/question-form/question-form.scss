@@ -1,7 +1,23 @@
 @use '../../../../../styles/variables' as *;
 
+.question-section {
+  margin-bottom: $spacing-xl;
+}
+
+.section-title {
+  margin: 0 0 $spacing-xs;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: $gray-900;
+}
+
+.section-subtitle {
+  margin: 0 0 $spacing-lg;
+  color: $gray-600;
+  font-size: 0.875rem;
+}
+
 .question-form {
-  margin-bottom: $spacing-lg;
   display: flex;
   gap: $spacing-md;
   align-items: flex-start;
@@ -9,4 +25,35 @@
 
 .question-field {
   flex: 1;
+}
+
+.submit-btn {
+  height: 56px;
+  padding: 0 24px;
+  font-size: 1rem;
+
+  mat-icon {
+    margin-left: $spacing-sm;
+  }
+}
+
+.suggestion-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  margin-top: $spacing-md;
+}
+
+.suggestion-chip {
+  font-size: 0.8125rem;
+  text-transform: none;
+  border-color: $gray-300;
+  color: $gray-700;
+  font-weight: 400;
+
+  &:hover {
+    background-color: rgba($primary-color, 0.04);
+    border-color: $primary-color;
+    color: $primary-color;
+  }
 }

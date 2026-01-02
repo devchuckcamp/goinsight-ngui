@@ -4,11 +4,19 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatChipsModule } from '@angular/material/chips';
 import { InsightStateService } from '../../../../core/services/insight-state.service';
 
 @Component({
   selector: 'ti-question-form',
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule],
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatChipsModule,
+  ],
   templateUrl: './question-form.html',
   styleUrl: './question-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,6 +32,18 @@ export class QuestionForm {
   });
 
   readonly loading = this.state.loading;
+
+  readonly suggestions = [
+    'Show me critical issues from enterprise customers',
+    'What are the top billing problems this month?',
+    'Show negative feedback about API performance',
+    'List high priority issues from North America',
+  ];
+
+  useSuggestion(suggestion: string): void {
+    this.form.controls['question'].setValue(suggestion);
+    this.submitQuestion.emit(suggestion);
+  }
 
   onSubmit(): void {
     if (this.form.valid) {

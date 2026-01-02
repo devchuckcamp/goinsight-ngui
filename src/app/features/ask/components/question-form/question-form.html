@@ -1,20 +1,36 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="question-form">
-  <mat-form-field class="question-field">
-    <mat-label>Ask a question about your feedback data</mat-label>
-    <input matInput formControlName="question"
-           placeholder="e.g., What are the top complaints from enterprise customers?"
-           (keyup.enter)="onSubmit()">
-    @if (form.controls.question.hasError('required') && form.controls.question.touched) {
-      <mat-error>Please enter a question</mat-error>
+<div class="question-section">
+  <h2 class="section-title">Ask a Question</h2>
+  <p class="section-subtitle">Ask natural language questions about feedback data</p>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="question-form">
+    <mat-form-field class="question-field" appearance="outline">
+      <mat-label>Ask a question about your feedback data</mat-label>
+      <input matInput formControlName="question"
+             placeholder="e.g., What are the top complaints from enterprise customers?"
+             (keyup.enter)="onSubmit()">
+      @if (form.controls.question.hasError('required') && form.controls.question.touched) {
+        <mat-error>Please enter a question</mat-error>
+      }
+      @if (form.controls.question.hasError('minlength') && form.controls.question.touched) {
+        <mat-error>Question must be at least 3 characters</mat-error>
+      }
+    </mat-form-field>
+    <button mat-raised-button color="primary"
+            type="submit"
+            class="submit-btn"
+            [disabled]="form.invalid || loading()">
+      Submit
+      <mat-icon>send</mat-icon>
+    </button>
+  </form>
+
+  <div class="suggestion-chips">
+    @for (suggestion of suggestions; track suggestion) {
+      <button mat-stroked-button
+              class="suggestion-chip"
+              (click)="useSuggestion(suggestion)">
+        {{ suggestion }}
+      </button>
     }
-    @if (form.controls.question.hasError('minlength') && form.controls.question.touched) {
-      <mat-error>Question must be at least 3 characters</mat-error>
-    }
-  </mat-form-field>
-  <button mat-raised-button color="primary"
-          type="submit"
-          [disabled]="form.invalid || loading()">
-    <mat-icon>send</mat-icon>
-    Ask
-  </button>
-</form>
+  </div>
+</div>
