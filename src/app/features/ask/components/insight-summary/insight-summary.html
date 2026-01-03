@@ -1,10 +1,18 @@
-<mat-card class="insight-card">
-  <mat-card-header>
-    <mat-icon matCardAvatar class="summary-icon">summarize</mat-icon>
-    <mat-card-title>AI Summary</mat-card-title>
-    <mat-card-subtitle>Based on your feedback data analysis</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
+<div class="insight-container">
+  <div class="insight-header">
+    <mat-icon class="insight-icon">psychology</mat-icon>
+    <h3>Insight Summary</h3>
+  </div>
+
+  @if (question) {
+    <div class="question-display">
+      <span class="question-label">Question:</span>
+      <span class="question-text">"{{ question }}"</span>
+    </div>
+  }
+
+  <div class="summary-section">
+    <span class="summary-label">Summary:</span>
     <p class="summary-text">{{ summary }}</p>
-  </mat-card-content>
-</mat-card>
+  </div>
+</div>

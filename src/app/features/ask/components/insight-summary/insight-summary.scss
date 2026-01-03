@@ -1,15 +1,69 @@
 @use '../../../../../styles/variables' as *;
 
-.insight-card {
-  margin-bottom: $spacing-lg;
+.insight-container {
+  background: white;
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-sm;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-xl;
 }
 
-.summary-icon {
-  color: $primary-color;
+.insight-header {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-lg;
+
+  .insight-icon {
+    color: $primary-color;
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $gray-900;
+  }
+}
+
+.question-display {
+  margin-bottom: $spacing-md;
+  padding: $spacing-md;
+  background-color: $gray-50;
+  border-radius: $border-radius-sm;
+  border-left: 3px solid $primary-color;
+
+  .question-label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: $gray-600;
+    display: block;
+    margin-bottom: $spacing-xs;
+  }
+
+  .question-text {
+    font-size: 0.9375rem;
+    color: $gray-800;
+    font-style: italic;
+  }
+}
+
+.summary-section {
+  .summary-label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: $gray-600;
+    display: block;
+    margin-bottom: $spacing-xs;
+  }
 }
 
 .summary-text {
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: 0.9375rem;
+  line-height: 1.7;
   color: $gray-800;
+  margin: 0;
 }

@@ -15,7 +15,7 @@
   }
 
   @if (state.lastResponse(); as response) {
-    <ti-insight-summary [summary]="response.summary"></ti-insight-summary>
+    <ti-insight-summary [summary]="response.summary" [question]="state.currentQuestion()"></ti-insight-summary>
 
     @if (response.data_preview.length > 0) {
       <ti-data-preview-table [data]="response.data_preview"></ti-data-preview-table>
