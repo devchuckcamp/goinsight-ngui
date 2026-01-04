@@ -1,11 +1,15 @@
 <div class="recommendations-container">
-  <h3>Recommendations</h3>
-  <mat-list>
+  <div class="recommendations-header">
+    <mat-icon class="header-icon">lightbulb</mat-icon>
+    <h3>Recommendations</h3>
+  </div>
+
+  <div class="recommendations-body">
     @for (rec of recommendations; track rec) {
-      <mat-list-item>
-        <mat-icon matListItemIcon>lightbulb</mat-icon>
-        <span matListItemTitle>{{ rec }}</span>
-      </mat-list-item>
+      <div class="recommendation-item">
+        <mat-icon class="check-icon">check_circle</mat-icon>
+        <span class="recommendation-text">{{ rec }}</span>
+      </div>
     }
-  </mat-list>
+  </div>
 </div>

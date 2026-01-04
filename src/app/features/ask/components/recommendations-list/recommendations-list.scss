@@ -1,5 +1,58 @@
 @use '../../../../../styles/variables' as *;
 
 .recommendations-container {
+  background: white;
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-sm;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-xl;
+}
+
+.recommendations-header {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
   margin-bottom: $spacing-lg;
+
+  .header-icon {
+    color: #ff9800;
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $gray-900;
+  }
+}
+
+.recommendations-body {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.recommendation-item {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-md;
+  padding: $spacing-sm 0;
+
+  .check-icon {
+    color: $success-color;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .recommendation-text {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: $gray-800;
+  }
 }
