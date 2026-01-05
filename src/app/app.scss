@@ -1,33 +1,52 @@
+@use '../styles/variables' as *;
+
 .loading-container {
   text-align: center;
-  padding: 32px;
+  padding: $spacing-3xl $spacing-md;
+  color: $gray-600;
+
+  p {
+    margin-top: $spacing-md;
+    font-size: 0.9375rem;
+  }
 }
 
 .error-banner {
-  color: #d32f2f;
-  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  color: $error-color;
+  padding: $spacing-md $spacing-lg;
   background: #ffebee;
-  border-radius: 4px;
-  margin-bottom: 16px;
+  border-radius: $border-radius-md;
+  border: 1px solid rgba($error-color, 0.2);
+  margin-bottom: $spacing-lg;
+  font-size: 0.9375rem;
+
+  mat-icon {
+    flex-shrink: 0;
+  }
 }
 
 .empty-state {
   text-align: center;
-  padding: 64px 16px;
-  color: rgba(0, 0, 0, 0.6);
+  padding: $spacing-3xl $spacing-md;
 
   &__icon {
-    font-size: 48px;
-    margin-bottom: 16px;
+    font-size: 56px;
+    margin-bottom: $spacing-md;
+    opacity: 0.8;
   }
 
   &__title {
-    font-size: 18px;
+    font-size: 1.25rem;
     font-weight: 500;
-    margin-bottom: 8px;
+    color: $gray-700;
+    margin-bottom: $spacing-sm;
   }
 
   &__subtitle {
-    font-size: 14px;
+    font-size: 0.9375rem;
+    color: $gray-500;
   }
 }
