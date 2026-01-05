@@ -1,32 +1,50 @@
 <div class="actions-container">
   <div class="actions-header">
-    <h3>Recommended Actions</h3>
+    <div class="header-left">
+      <mat-icon class="header-icon">check_box</mat-icon>
+      <h3>Suggested Actions</h3>
+    </div>
     @if (selectedIndices().length > 0) {
-      <button mat-raised-button color="accent"
+      <button mat-raised-button color="primary"
+              class="jira-btn"
               [disabled]="creating()"
               (click)="createJiraTickets()">
-        <mat-icon>add_task</mat-icon>
-        Create {{ selectedIndices().length }} JIRA Ticket(s)
+        <mat-icon>confirmation_number</mat-icon>
+        Create JIRA Tickets
       </button>
     }
   </div>
 
-  <mat-accordion>
+  <div class="actions-meta">
+    <span class="meta-text">{{ actions.length }} actions available</span>
+    @if (selectedIndices().length > 0) {
+      <span class="meta-separator">&middot;</span>
+      <span class="meta-selected">{{ selectedIndices().length }} selected</span>
+    }
+  </div>
+
+  <mat-accordion multi>
     @for (action of actions; track action.title; let i = $index) {
-      <mat-expansion-panel>
+      <mat-expansion-panel [class.panel-selected]="isSelected(i)">
         <mat-expansion-panel-header>
           <mat-panel-title>
             <mat-checkbox [checked]="isSelected(i)"
                           (click)="$event.stopPropagation()"
                           (change)="toggleSelection(i)">
             </mat-checkbox>
+            <mat-icon class="action-icon">format_list_bulleted</mat-icon>
             <span class="action-title">{{ action.title }}</span>
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <p>{{ action.description }}</p>
-        @if (action.magnitude) {
-          <p class="action-magnitude">Impact magnitude: {{ action.magnitude }}</p>
-        }
+        <div class="action-body">
+          <p class="action-description">{{ action.description }}</p>
+          @if (action.magnitude) {
+            <div class="action-magnitude">
+              <mat-icon>trending_up</mat-icon>
+              <span>Impact: {{ action.magnitude }}</span>
+            </div>
+          }
+        </div>
       </mat-expansion-panel>
     }
   </mat-accordion>
