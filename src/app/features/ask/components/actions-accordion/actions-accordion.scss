@@ -117,3 +117,15 @@ mat-expansion-panel {
     height: 18px;
   }
 }
+
+@media (max-width: $breakpoint-sm) {
+  .actions-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $spacing-md;
+
+    .jira-btn {
+      width: 100%;
+    }
+  }
+}
