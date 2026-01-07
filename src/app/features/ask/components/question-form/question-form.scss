@@ -1,19 +1,23 @@
 @use '../../../../../styles/variables' as *;
 
 .question-section {
+  background: white;
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-sm;
+  padding: $spacing-lg;
   margin-bottom: $spacing-xl;
 }
 
 .section-title {
   margin: 0 0 $spacing-xs;
-  font-size: 1.5rem;
-  font-weight: 500;
+  font-size: 1.375rem;
+  font-weight: 600;
   color: $gray-900;
 }
 
 .section-subtitle {
   margin: 0 0 $spacing-lg;
-  color: $gray-600;
+  color: $gray-500;
   font-size: 0.875rem;
 }
 
