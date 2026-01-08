@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
 import { AppLayout } from './core/layout/app-layout/app-layout';
 import { GoinsightApiService } from './core/services/goinsight-api.service';
 import { InsightStateService } from './core/services/insight-state.service';
@@ -15,6 +16,7 @@ import {
   selector: 'ti-root',
   imports: [
     MatProgressSpinnerModule,
+    MatIconModule,
     AppLayout,
     QuestionForm,
     InsightSummary,
