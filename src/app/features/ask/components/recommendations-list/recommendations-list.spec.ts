@@ -18,11 +18,37 @@ describe('RecommendationsList', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should default to empty recommendations', () => {
+    expect(component.recommendations).toEqual([]);
+  });
+
   it('should display recommendation items', () => {
     component.recommendations = ['Improve API response time', 'Add better documentation'];
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.textContent).toContain('Improve API response time');
     expect(compiled.textContent).toContain('Add better documentation');
+  });
+
+  it('should render a check icon for each recommendation', () => {
+    component.recommendations = ['Rec 1', 'Rec 2', 'Rec 3'];
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const checkIcons = compiled.querySelectorAll('.check-icon');
+    expect(checkIcons.length).toBe(3);
+  });
+
+  it('should display the header with lightbulb icon', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.textContent).toContain('Recommendations');
+    expect(compiled.querySelector('.header-icon')).toBeTruthy();
+  });
+
+  it('should render no items when recommendations is empty', () => {
+    component.recommendations = [];
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelectorAll('.recommendation-item').length).toBe(0);
   });
 });

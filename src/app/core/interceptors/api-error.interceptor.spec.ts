@@ -32,7 +32,7 @@ describe('apiErrorInterceptor', () => {
     req.flush({ data: 'ok' });
   });
 
-  it('should normalize server error with message', () => {
+  it('should normalize server error with message field', () => {
     httpClient.get('/test').subscribe({
       error: (err: ApiError) => {
         expect(err.message).toBe('Server error message');
@@ -44,6 +44,18 @@ describe('apiErrorInterceptor', () => {
     req.flush({ message: 'Server error message' }, { status: 500, statusText: 'Internal Server Error' });
   });
 
+  it('should normalize server error with error field', () => {
+    httpClient.get('/test').subscribe({
+      error: (err: ApiError) => {
+        expect(err.message).toBe('Something broke');
+        expect(err.status).toBe(422);
+      },
+    });
+
+    const req = httpMock.expectOne('/test');
+    req.flush({ error: 'Something broke' }, { status: 422, statusText: 'Unprocessable Entity' });
+  });
+
   it('should handle network error (status 0)', () => {
     httpClient.get('/test').subscribe({
       error: (err: ApiError) => {
@@ -53,5 +65,17 @@ describe('apiErrorInterceptor', () => {
 
     const req = httpMock.expectOne('/test');
     req.error(new ProgressEvent('error'));
+  });
+
+  it('should fall back to statusText when no message or error field', () => {
+    httpClient.get('/test').subscribe({
+      error: (err: ApiError) => {
+        expect(err.message).toBe('Not Found');
+        expect(err.status).toBe(404);
+      },
+    });
+
+    const req = httpMock.expectOne('/test');
+    req.flush(null, { status: 404, statusText: 'Not Found' });
   });
 });
