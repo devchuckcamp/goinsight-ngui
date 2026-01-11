@@ -19,10 +19,10 @@ export interface Action {
 
 export interface AskResponse {
   question: string;
-  data_preview: FeedbackItem[];
+  data_preview: FeedbackItem[] | null;
   summary: string;
-  recommendations: string[];
-  actions: Action[];
+  recommendations: string[] | null;
+  actions: Action[] | null;
 }
 
 export interface AskRequest {

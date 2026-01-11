@@ -39,13 +39,13 @@ export class ActionsAccordion {
     const question = this.state.currentQuestion();
     if (!response || !question) return;
 
-    const selectedActions = this.selectedIndices().map((i) => response.actions[i]);
+    const selectedActions = this.selectedIndices().map((i) => (response.actions ?? [])[i]);
 
     const payload: CreateJiraTicketsRequest = {
       question,
-      data_preview: response.data_preview,
+      data_preview: response.data_preview ?? [],
       summary: response.summary,
-      recommendations: response.recommendations,
+      recommendations: response.recommendations ?? [],
       actions: selectedActions,
       meta: { project_key: environment.jiraProjectKey },
     };

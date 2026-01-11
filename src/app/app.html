@@ -18,16 +18,16 @@
   @if (state.lastResponse(); as response) {
     <ti-insight-summary [summary]="response.summary" [question]="state.currentQuestion() ?? ''"></ti-insight-summary>
 
-    @if (response.data_preview.length > 0) {
-      <ti-data-preview-table [data]="response.data_preview"></ti-data-preview-table>
+    @if (response.data_preview?.length) {
+      <ti-data-preview-table [data]="response.data_preview!"></ti-data-preview-table>
     }
 
-    @if (response.recommendations.length > 0) {
-      <ti-recommendations-list [recommendations]="response.recommendations"></ti-recommendations-list>
+    @if (response.recommendations?.length) {
+      <ti-recommendations-list [recommendations]="response.recommendations!"></ti-recommendations-list>
     }
 
-    @if (response.actions.length > 0) {
-      <ti-actions-accordion [actions]="response.actions"></ti-actions-accordion>
+    @if (response.actions?.length) {
+      <ti-actions-accordion [actions]="response.actions!"></ti-actions-accordion>
     }
   }
 

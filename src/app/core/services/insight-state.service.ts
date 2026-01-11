@@ -93,7 +93,7 @@ export class InsightStateService {
     const current = this.lastResponse();
     if (!current) return;
 
-    const newActions = current.actions.filter((_, idx) => !indicesToRemove.includes(idx));
+    const newActions = (current.actions ?? []).filter((_, idx) => !indicesToRemove.includes(idx));
     this.lastResponse.set({ ...current, actions: newActions });
   }
 
