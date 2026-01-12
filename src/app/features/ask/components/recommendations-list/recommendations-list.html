@@ -5,7 +5,7 @@
   </div>
 
   <div class="recommendations-body">
-    @for (rec of recommendations; track rec) {
+    @for (rec of recommendations(); track rec) {
       <div class="recommendation-item">
         <mat-icon class="check-icon">check_circle</mat-icon>
         <span class="recommendation-text">{{ rec }}</span>

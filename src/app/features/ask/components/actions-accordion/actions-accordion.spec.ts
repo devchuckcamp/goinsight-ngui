@@ -36,14 +36,14 @@ describe('ActionsAccordion', () => {
   });
 
   it('should default to empty actions', () => {
-    expect(component.actions).toEqual([]);
+    expect(component.actions()).toEqual([]);
   });
 
   it('should display action panels', () => {
-    component.actions = [
+    fixture.componentRef.setInput('actions', [
       { title: 'Fix API latency', description: 'Optimize database queries' },
       { title: 'Add docs', description: 'Write better API docs' },
-    ];
+    ]);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.textContent).toContain('Fix API latency');
@@ -66,20 +66,20 @@ describe('ActionsAccordion', () => {
   });
 
   it('should display the actions count', () => {
-    component.actions = [
+    fixture.componentRef.setInput('actions', [
       { title: 'Action 1', description: 'Desc 1' },
       { title: 'Action 2', description: 'Desc 2' },
-    ];
+    ]);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.textContent).toContain('2 actions available');
   });
 
   it('should display selected count when actions are selected', () => {
-    component.actions = [
+    fixture.componentRef.setInput('actions', [
       { title: 'Action 1', description: 'Desc 1' },
       { title: 'Action 2', description: 'Desc 2' },
-    ];
+    ]);
     component.toggleSelection(0);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
@@ -87,14 +87,14 @@ describe('ActionsAccordion', () => {
   });
 
   it('should not show JIRA button when nothing is selected', () => {
-    component.actions = [{ title: 'A', description: 'B' }];
+    fixture.componentRef.setInput('actions', [{ title: 'A', description: 'B' }]);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.jira-btn')).toBeNull();
   });
 
   it('should show JIRA button when actions are selected', () => {
-    component.actions = [{ title: 'A', description: 'B' }];
+    fixture.componentRef.setInput('actions', [{ title: 'A', description: 'B' }]);
     component.toggleSelection(0);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
@@ -116,7 +116,7 @@ describe('ActionsAccordion', () => {
     });
     state.toggleActionSelection(0);
 
-    component.actions = [{ title: 'Fix it', description: 'Fix the bug' }];
+    fixture.componentRef.setInput('actions', [{ title: 'Fix it', description: 'Fix the bug' }]);
     component.createJiraTickets();
 
     expect(state.creatingJiraTickets()).toBeTrue();
@@ -144,7 +144,7 @@ describe('ActionsAccordion', () => {
     });
     state.toggleActionSelection(0);
 
-    component.actions = [{ title: 'A', description: 'B' }];
+    fixture.componentRef.setInput('actions', [{ title: 'A', description: 'B' }]);
     component.createJiraTickets();
 
     const req = httpMock.expectOne('/api/jira-tickets');

@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,7 +12,7 @@ import { FeedbackItem } from '../../../../shared/models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataPreviewTable {
-  @Input() data: FeedbackItem[] = [];
+  readonly data = input<FeedbackItem[]>([]);
 
   displayedColumns = [
     'id', 'created_at', 'priority', 'sentiment', 'product_area',

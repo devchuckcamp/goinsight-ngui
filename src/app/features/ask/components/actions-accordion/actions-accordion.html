@@ -16,7 +16,7 @@
   </div>
 
   <div class="actions-meta">
-    <span class="meta-text">{{ actions.length }} actions available</span>
+    <span class="meta-text">{{ actions().length }} actions available</span>
     @if (selectedIndices().length > 0) {
       <span class="meta-separator">&middot;</span>
       <span class="meta-selected">{{ selectedIndices().length }} selected</span>
@@ -24,7 +24,7 @@
   </div>
 
   <mat-accordion multi>
-    @for (action of actions; track action.title; let i = $index) {
+    @for (action of actions(); track action.title; let i = $index) {
       <mat-expansion-panel [class.panel-selected]="isSelected(i)">
         <mat-expansion-panel-header>
           <mat-panel-title>

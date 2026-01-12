@@ -35,7 +35,7 @@ describe('DataPreviewTable', () => {
       },
     ];
 
-    component.data = mockData;
+    fixture.componentRef.setInput('data', mockData);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('table')).toBeTruthy();
@@ -91,7 +91,7 @@ describe('DataPreviewTable', () => {
       },
     ];
 
-    component.data = mockData;
+    fixture.componentRef.setInput('data', mockData);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.textContent).toContain('2 rows');

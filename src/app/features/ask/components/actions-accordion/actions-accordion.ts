@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, inject } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy, inject } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,7 +17,7 @@ import { environment } from '../../../../../environments/environment';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ActionsAccordion {
-  @Input() actions: Action[] = [];
+  readonly actions = input<Action[]>([]);
 
   private readonly state = inject(InsightStateService);
   private readonly apiService = inject(GoinsightApiService);
